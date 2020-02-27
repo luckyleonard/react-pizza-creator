@@ -32,5 +32,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "main": "index.js",
+  "repository": "git@github.com:luckyleonard/react-pizza-creator.git",
+  "author": "luckyleonard <dzhu31@hotmail.com>",
+  "license": "MIT"
 }
