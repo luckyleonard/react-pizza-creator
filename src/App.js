@@ -1,25 +1,54 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Section from './components/Section';
+import styled from 'styled-components';
+
+const Layout = styled.div`
+  padding: 20px 30px;
+`;
+
+const PlaceOrderButton = styled.button`
+  border: 0;
+  outline: 0;
+  background: #98C550;
+  font-size: 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 10px 15px;
+  width: 100%;
+  color: white;
+
+  &:hover {
+    background: #b9ea6a;
+  }
+`;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+      <Section
+        title="Enter your details"
+      >
+        Details form
+      </Section>
+      <Section
+        title="Choose your pizza"
+      >
+        <div>
+          <h3>Select the size</h3>
+          <div>Size selection</div>
+        </div>
+        <div>
+          <h3>Pick your toppings</h3>
+          <div>Toppings selection</div>
+        </div>
+      </Section>
+      <Section
+        title="Order summary"
+      >
+        Order summary list
+      </Section>
+      <PlaceOrderButton>Place order</PlaceOrderButton>
+    </Layout>
   );
 }
 
