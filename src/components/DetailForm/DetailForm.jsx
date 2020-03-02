@@ -48,32 +48,34 @@ DetailItem.propTypes = {
   name: PropTypes.string.isRequired
 };
 
-const DetailForm = () => (
-  <FormWrapper>
-    <DetailItem label={'name'} placeholder={'John Smith'} name={'name'} />
-    <DetailItem
-      label={'email'}
-      placeholder={'Enter your email'}
-      name={'email'}
-    />
-    <DetailItem
-      label={'confirm'}
-      placeholder={'Confirm your email'}
-      name={'confirmEmail'}
-    />
-    <DetailItem
-      label={'address'}
-      placeholder={'44 Pizza Street'}
-      name={'address'}
-    />
-    <DetailItem label={'postcode'} placeholder={'PI3 3AS'} name={'postcode'} />
-    <DetailItem
-      label={'contact number'}
-      placeholder={'01234 567 890'}
-      name={'contactNumber'}
-    />
-  </FormWrapper>
-);
+const DetailForm = () => {
+  const itemList = [
+    { label: 'name', placeholder: 'John Smith', name: 'name' },
+    { label: 'email', placeholder: 'Enter your email', name: 'email' },
+    {
+      label: 'confirm',
+      placeholder: 'Confirm your email',
+      name: 'confirmEmail'
+    },
+    { label: 'address', placeholder: '44 Pizza Street', name: 'address' },
+    { label: 'postcode', placeholder: 'PI3 3AS', name: 'postcode' },
+    {
+      label: 'contact number',
+      placeholder: '01234 567 890',
+      name: 'contactNumber'
+    }
+  ];
+
+  return (
+    <FormWrapper>
+      {itemList.map((item, index) => {
+        return <DetailItem {...item} key={index} />;
+      })}
+      ;
+    </FormWrapper>
+  );
+};
 
 DetailForm.propTypes = {};
+
 export default DetailForm;
