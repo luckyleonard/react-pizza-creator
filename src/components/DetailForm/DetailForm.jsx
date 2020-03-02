@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Label, Input, FormWrapper, ItemWrapper } from './style';
 
 const DetailItem = ({ label, placeholder, name }) => (
