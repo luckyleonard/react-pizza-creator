@@ -1,40 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import styled from 'styled-components';
-
-const Label = styled.h3`
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: rgba(0, 0, 0, 0.6);
-  ::after {
-    content: ' *';
-    color: red;
-  }
-`;
-
-const Input = styled.input`
-  background: #fff;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.02);
-  border-radius: 2px;
-  border: 1px solid #d7d7e7;
-  font-size: 18px;
-  padding: 10px 15px;
-  outline: none;
-  font-family: inherit;
-  color: rgba(0, 0, 0, 0.8);
-  width: 80%;
-`;
-
-const FormWrapper = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-around;
-`;
-
-const ItemWrapper = styled.div`
-  flex: 33.3%;
-`;
+import { Label, Input, FormWrapper, ItemWrapper } from './style';
 
 const DetailItem = ({ label, placeholder, name }) => (
   <ItemWrapper>
@@ -71,7 +37,6 @@ const DetailForm = () => {
       {itemList.map((item, index) => {
         return <DetailItem {...item} key={index} />;
       })}
-      ;
     </FormWrapper>
   );
 };
