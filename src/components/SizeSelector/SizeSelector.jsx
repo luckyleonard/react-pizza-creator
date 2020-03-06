@@ -15,6 +15,10 @@ const SelectorItem = ({ size, label }) => (
     <PizzaLabel>{label}</PizzaLabel>
   </OneSelectorWrapper>
 );
+SelectorItem.propTypes = {
+  size: PropTypes.number.isRequired,
+  label: PropTypes.string.isRequired
+};
 
 const SizeSelector = () => (
   <>

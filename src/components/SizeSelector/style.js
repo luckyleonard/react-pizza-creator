@@ -7,6 +7,7 @@ export const AllSelectorWrapper = styled.div`
 `;
 
 export const OneSelectorWrapper = styled.div`
+  cursor: pointer;
   flex: 33.3%;
   display: flex;
   flex-flow: row;
