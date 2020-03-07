@@ -1,22 +1,24 @@
 # Pizza Creator
 
-MVP 
+MVP
 
-- 去掉左面的CSS动画
-- 地址输入表单
-- 去掉多个 Pizza 的选择
-- Size 选择列表
-- Toppings 选择列表
-- Order Summary
-- Place Order (log)
+- [x] 去掉左面的 CSS 动画
+- [x] 地址输入表单
+- [x] 去掉多个 Pizza 的选择
+- [x] Size 选择列表
+- [x] Toppings 选择列表
+- [x] Order Summary
+- [x] Place Order (log)
 
 Milestone 1:
+
 - 地址表单的输入验证
 - Size 选择列表的验证
 - Toppings 选择列表的验证
 - 对接后端 Place Order
 
 Milestone n:
+
 - ...
 
 ---

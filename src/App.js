@@ -1,6 +1,10 @@
 import React from 'react';
 import Section from './components/Section';
 import DetailForm from './components/DetailForm';
+import SizeSelector from './components/SizeSelector';
+import ToppingSelector from './components/ToppingSelector';
+import OrderSummary from './components/OrderSummary';
+
 import styled from 'styled-components';
 
 const Layout = styled.div`
@@ -30,16 +34,12 @@ function App() {
         <DetailForm />
       </Section>
       <Section title='Choose your pizza'>
-        <div>
-          <h3>Select the size</h3>
-          <div>Size selection</div>
-        </div>
-        <div>
-          <h3>Pick your toppings</h3>
-          <div>Toppings selection</div>
-        </div>
+        <SizeSelector />
+        <ToppingSelector />
       </Section>
-      <Section title='Order summary'>Order summary list</Section>
+      <Section title='Order summary'>
+        <OrderSummary />
+      </Section>
       <PlaceOrderButton>Place order</PlaceOrderButton>
     </Layout>
   );
