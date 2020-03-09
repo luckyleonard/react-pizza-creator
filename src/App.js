@@ -27,7 +27,7 @@ const PlaceOrderButton = styled.button`
   }
 `;
 
-function App() {
+const App = () => {
   return (
     <Layout>
       <Section title='Enter your details'>
@@ -43,6 +43,6 @@ function App() {
       <PlaceOrderButton>Place order</PlaceOrderButton>
     </Layout>
   );
-}
+};
 
 export default App;
