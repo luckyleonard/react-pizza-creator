@@ -8,7 +8,7 @@ export const AllSelectorWrapper = styled.div`
 
 export const OneSelectorWrapper = styled.div`
   cursor: pointer;
-  flex: 33.3%;
+  flex: calc(100% / 3);
   display: flex;
   flex-flow: row;
   align-items: center;
@@ -23,9 +23,14 @@ export const Label = styled.h3`
 
 export const PizzaSVG = styled.img`
   margin: 1rem 1rem;
-  width: ${props => `${props.size}rem`};
+  width: ${({ size }) => `${size}rem`};
+  border: 3px solid ${({ selected }) => (selected ? '#dadada' : 'transparent')};
+  background: ${({ selected }) => (selected ? '#f3f3f3' : 'transparent')};
+  border-radius: 50%;
+  padding: 6px;
 `;
+
 export const PizzaLabel = styled.span`
   font-size: 16px;
-  color: rgba(0, 0, 0, 0.7);
+  color: ${({ selected }) => (selected ? '#1a98e1' : 'rgba(0, 0, 0, 0.7)')};
 `;

@@ -9,10 +9,10 @@ import {
 } from './style';
 import pizzaSVG from './assets/pizza-svgrepo-com.svg';
 
-const SelectorItem = ({ size, label }) => (
-  <OneSelectorWrapper>
-    <PizzaSVG src={pizzaSVG} alt='Pizza' size={size} />
-    <PizzaLabel>{label}</PizzaLabel>
+const SelectorItem = ({ size, label, selected, onSelect }) => (
+  <OneSelectorWrapper onClick={onSelect}>
+    <PizzaSVG src={pizzaSVG} alt={label} size={size} selected={selected} />
+    <PizzaLabel selected={selected}>{label}</PizzaLabel>
   </OneSelectorWrapper>
 );
 SelectorItem.propTypes = {
@@ -20,13 +20,22 @@ SelectorItem.propTypes = {
   label: PropTypes.string.isRequired
 };
 
-const SizeSelector = () => (
+const SizeSelector = ({ sizes, selectedSize, onSelect }) => (
   <>
     <Label>Select the size *</Label>
     <AllSelectorWrapper>
-      <SelectorItem size='5' label='Large (13")' />
-      <SelectorItem size='4' label='Medium (11")' />
-      <SelectorItem size='3' label='Small (9")' />
+      {sizes.map(size => {
+        return (
+          <SelectorItem
+            {...size}
+            key={size.price}
+            selected={selectedSize.price === size.price}
+            onSelect={() => {
+              onSelect(size);
+            }}
+          />
+        );
+      })}
     </AllSelectorWrapper>
   </>
 );
