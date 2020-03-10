@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import Section from './components/Section';
 import DetailForm from './components/DetailForm';
 import SizeSelector from './components/SizeSelector';
@@ -28,10 +28,20 @@ const PlaceOrderButton = styled.button`
 `;
 
 const App = () => {
+  const [detail, setDetail] = useState({});
+  const [size, setSize] = useState();
+  const [toppings, setToppings] = useState();
+
+  const handleDetail = useCallback(e => {
+    let value = e.target.value;
+    let name = e.target.name;
+    setDetail(prevState => ({ ...prevState, [name]: value }));
+  }, []);
+
   return (
     <Layout>
       <Section title='Enter your details'>
-        <DetailForm />
+        <DetailForm handleDetail={handleDetail} />
       </Section>
       <Section title='Choose your pizza'>
         <SizeSelector />

@@ -11,6 +11,14 @@ export const Label = styled.h3`
   }
 `;
 
+export const Alarm = styled.span`
+  float: right;
+  color: #e01d3b;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+`;
+
 export const Input = styled.input`
   background: #fff;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.02);
@@ -21,7 +29,7 @@ export const Input = styled.input`
   outline: none;
   font-family: inherit;
   color: rgba(0, 0, 0, 0.8);
-  width: 80%;
+  width: 90%;
 `;
 
 export const FormWrapper = styled.div`
@@ -31,5 +39,5 @@ export const FormWrapper = styled.div`
 `;
 
 export const ItemWrapper = styled.div`
-  flex: 33.3%;
+  flex: 30% 0;
 `;
