@@ -18,47 +18,62 @@ import prawn from './assets/prawn.svg';
 import sweetcorn from './assets/sweetcorn.svg';
 import tomato from './assets/tomato.svg';
 
-const SelectorItem = ({ label, toppingSVG }) => (
-  <Topping>
-    <ToppingIcon toppingSVG={toppingSVG} />
+const TOPPING_SVG = {
+  anchovy,
+  bacon,
+  base,
+  basil,
+  board,
+  chili,
+  mozzarella,
+  mushroom,
+  olive,
+  onion,
+  pepper,
+  pepperoni,
+  prawn,
+  sweetcorn,
+  tomato
+};
+
+const SelectorItem = ({ label, selected, onSelect }) => (
+  <Topping onClick={onSelect} selected={selected}>
+    <ToppingIcon toppingSVG={TOPPING_SVG[label.toLowerCase()]} />
     {label}
   </Topping>
 );
 
 SelectorItem.propTypes = {
   label: PropTypes.string.isRequired,
-  toppingSVG: PropTypes.string.isRequired
+  selected: PropTypes.bool.isRequired,
+  onSelect: PropTypes.func.isRequired
 };
 
-const ToppingSelector = () => {
-  const TOPPING_INFORMATION = [
-    { label: 'Anchovy', toppingSVG: anchovy },
-    { label: 'Bacon', toppingSVG: bacon },
-    { label: 'Base', toppingSVG: base },
-    { label: 'Basil', toppingSVG: basil },
-    { label: 'Board', toppingSVG: board },
-    { label: 'Chili', toppingSVG: chili },
-    { label: 'Mozzarella', toppingSVG: mozzarella },
-    { label: 'Mushroom', toppingSVG: mushroom },
-    { label: 'Olive', toppingSVG: olive },
-    { label: 'Onion', toppingSVG: onion },
-    { label: 'Pepper', toppingSVG: pepper },
-    { label: 'Pepperoni', toppingSVG: pepperoni },
-    { label: 'Prawn', toppingSVG: prawn },
-    { label: 'Sweetcorn', toppingSVG: sweetcorn },
-    { label: 'Tomato', toppingSVG: tomato }
-  ];
+const ToppingSelector = ({ toppingList, selectedToppings, onSelect }) => {
   return (
     <>
       <Label>Pick your toppings</Label>
       <ToppingSelectorWrapper>
-        {TOPPING_INFORMATION.map((topping, index) => (
-          <SelectorItem {...topping} key={index} />
-        ))}
+        {toppingList.map((topping, index) => {
+          return (
+            <SelectorItem
+              {...topping}
+              key={index}
+              selected={JSON.stringify(selectedToppings).includes(
+                JSON.stringify(topping)
+              )}
+              onSelect={() => onSelect(topping)}
+            />
+          );
+        })}
       </ToppingSelectorWrapper>
     </>
   );
 };
 
-ToppingSelector.propTypes = {};
+ToppingSelector.propTypes = {
+  toppingList: PropTypes.array.isRequired,
+  selectedToppings: PropTypes.array,
+  onSelect: PropTypes.func.isRequired
+};
 export default ToppingSelector;
