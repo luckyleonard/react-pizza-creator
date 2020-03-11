@@ -37,12 +37,30 @@ ToppingPrice.propTypes = {
   toppingPrice: PropTypes.string
 };
 
-const OrderSummary = () => (
-  <>
-    <SizePrice size='Medium Pizza' sizePrice='12.99' />
-    <ToppingPrice topping='Bacon' toppingPrice='0.99' />
-    <TotalPrice>13.98</TotalPrice>
-  </>
-);
-OrderSummary.propTypes = {};
+const OrderSummary = ({ selectedSize, selectedToppings }) => {
+  const totalPrice = selectedToppings.reduce(
+    (t, v) => t + v.price,
+    selectedSize.price
+  );
+
+  return (
+    <>
+      <SizePrice size={selectedSize.label} sizePrice={selectedSize.price} />
+      {selectedToppings.map((selectedTopping, index) => {
+        return (
+          <ToppingPrice
+            topping={selectedTopping.label}
+            toppingPrice={selectedTopping.price}
+            key={index}
+          />
+        );
+      })}
+      <TotalPrice>{totalPrice.toFixed(2)}</TotalPrice>
+    </>
+  );
+};
+OrderSummary.propTypes = {
+  selectedSize: PropTypes.object.isRequired,
+  selectedToppings: PropTypes.array
+};
 export default OrderSummary;

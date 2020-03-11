@@ -23,7 +23,7 @@ export const ToppingSummary = styled.div`
   position: relative;
   font-size: 16px;
   color: rgba(0, 0, 0, 0.7);
-  margin-left: 10px;
+  margin: 10px 0 0 10px;
 `;
 
 export const ToppingPriceTag = styled.span`
