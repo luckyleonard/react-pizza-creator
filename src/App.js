@@ -36,32 +36,32 @@ const PlaceOrderButton = styled.button`
     );
   }}
 `;
+//don't put const in render() will return different cache
+const SIZE_OPTION = [
+  { size: 5, label: 'Large (13")', price: 16.99 },
+  { size: 4, label: 'Medium (11")', price: 12.99 },
+  { size: 3, label: 'Small (9")', price: 9.99 }
+];
+
+const TOPPING_INFORMATION = [
+  { label: 'Anchovy', price: 0.69 },
+  { label: 'Bacon', price: 0.69 },
+  { label: 'Base', price: 0.99 },
+  { label: 'Basil', price: 0.69 },
+  { label: 'Board', price: 0.99 },
+  { label: 'Chili', price: 0.69 },
+  { label: 'Mozzarella', price: 0.69 },
+  { label: 'Mushroom', price: 0.69 },
+  { label: 'Olive', price: 0.69 },
+  { label: 'Onion', price: 0.69 },
+  { label: 'Pepper', price: 0.69 },
+  { label: 'Pepperoni', price: 0.69 },
+  { label: 'Prawn', price: 0.99 },
+  { label: 'Sweetcorn', price: 0.69 },
+  { label: 'Tomato', price: 0.69 }
+];
 
 const App = () => {
-  const SIZE_OPTION = [
-    { size: 5, label: 'Large (13")', price: 16.99 },
-    { size: 4, label: 'Medium (11")', price: 12.99 },
-    { size: 3, label: 'Small (9")', price: 9.99 }
-  ];
-
-  const TOPPING_INFORMATION = [
-    { label: 'Anchovy', price: 0.69 },
-    { label: 'Bacon', price: 0.69 },
-    { label: 'Base', price: 0.99 },
-    { label: 'Basil', price: 0.69 },
-    { label: 'Board', price: 0.99 },
-    { label: 'Chili', price: 0.69 },
-    { label: 'Mozzarella', price: 0.69 },
-    { label: 'Mushroom', price: 0.69 },
-    { label: 'Olive', price: 0.69 },
-    { label: 'Onion', price: 0.69 },
-    { label: 'Pepper', price: 0.69 },
-    { label: 'Pepperoni', price: 0.69 },
-    { label: 'Prawn', price: 0.99 },
-    { label: 'Sweetcorn', price: 0.69 },
-    { label: 'Tomato', price: 0.69 }
-  ];
-
   const [detail, setDetail] = useState({});
   const [size, setSize] = useState(SIZE_OPTION[0]);
   const [toppings, setToppings] = useState([]);
@@ -79,13 +79,8 @@ const App = () => {
 
   const handleToppingSelect = useCallback(
     chosenTopping => {
-      JSON.stringify(toppings).includes(JSON.stringify(chosenTopping))
-        ? setToppings(
-            toppings.filter(
-              topping =>
-                JSON.stringify(topping) !== JSON.stringify(chosenTopping)
-            )
-          )
+      toppings.includes(chosenTopping)
+        ? setToppings(toppings.filter(topping => topping !== chosenTopping))
         : setToppings([...toppings, chosenTopping]);
     },
     [toppings]
@@ -94,7 +89,7 @@ const App = () => {
   return (
     <Layout>
       <Section title='Enter your details'>
-        <DetailForm handleDetail={handleDetail} />
+        <DetailForm handleDetail={handleDetail} detail={detail} />
       </Section>
       <Section title='Choose your pizza'>
         <SizeSelector

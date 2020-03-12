@@ -29,7 +29,7 @@ const SizeSelector = ({ sizes, selectedSize, onSelect }) => (
           <SelectorItem
             {...size}
             key={size.price}
-            selected={JSON.stringify(selectedSize) === JSON.stringify(size)}
+            selected={selectedSize === size}
             onSelect={() => {
               onSelect(size);
             }}

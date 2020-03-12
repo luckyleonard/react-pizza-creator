@@ -59,9 +59,7 @@ const ToppingSelector = ({ toppingList, selectedToppings, onSelect }) => {
             <SelectorItem
               {...topping}
               key={index}
-              selected={JSON.stringify(selectedToppings).includes(
-                JSON.stringify(topping)
-              )}
+              selected={selectedToppings.includes(topping)}
               onSelect={() => onSelect(topping)}
             />
           );
