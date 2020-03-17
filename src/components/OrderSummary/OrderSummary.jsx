@@ -20,7 +20,7 @@ const SizePrice = ({ size, sizePrice }) => (
 );
 SizePrice.propTypes = {
   size: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired
+  sizePrice: PropTypes.string.isRequired
 };
 
 const ToppingPrice = ({ topping, toppingPrice }) => (
