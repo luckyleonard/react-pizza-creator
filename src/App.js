@@ -22,9 +22,9 @@ const PlaceOrderButton = styled.button`
   cursor: not-allowed;
   color: rgba(0, 0, 0, 0.4);
 
-  ${({ validation }) => {
+  ${({ verified }) => {
     return (
-      validation &&
+      verified &&
       css`
         background: #98c550;
         cursor: pointer;
@@ -61,146 +61,25 @@ const TOPPING_INFORMATION = [
   { label: 'Tomato', price: 0.69 }
 ];
 
-const REGEX = {
-  email: /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim,
-  address: /^.{3,}$/,
-  postcode: /^\d{4}$/,
-  contactNumber: /^(?:(?:61)|(?:0))?([23478])(\d{4})(\d{4})$/gm
-};
-
-function isEmpty(obj) {
-  for (var prop in obj) {
-    return false;
-  }
-  return true;
-}
-
-function isEmptyProp(obj) {
-  for (var prop in obj) {
-    if (obj[prop] !== '') {
-      return false;
-    }
-  }
-  return true;
-}
-
 const App = () => {
   const [detail, setDetail] = useState({});
-  const [detailMsg, setDetailMsg] = useState({});
-  const [validation, setValidation] = useState(false);
+  const [verified, setVerified] = useState(false);
   const [size, setSize] = useState(SIZE_OPTION[2]);
   const [toppings, setToppings] = useState([]);
 
   const handleDetail = e => {
     let value = e.target.value;
     let name = e.target.name;
-    if (value.trim().length === 0) {
-      setDetailMsg(prevState => ({
-        ...prevState,
-        [name]: 'field is required'
-      }));
-      setValidation(false);
-      setDetail(prevState => ({ ...prevState, [name]: value }));
-      //need to set detail, or when the content is empty,it will not refresh the Detail component, then will left one letter in Input
-      return;
-    }
-
-    let regex = new RegExp(REGEX[name]);
-
-    switch (name) {
-      case 'email':
-        if (!regex.test(value)) {
-          setDetailMsg(prevState => ({
-            ...prevState,
-            [name]: 'Email address is invalid'
-          }));
-          setValidation(false);
-          break;
-        }
-        setDetailMsg(prevState => ({
-          ...prevState,
-          [name]: ''
-        }));
-        break;
-
-      case 'confirmEmail':
-        if (value !== detail['email']) {
-          setDetailMsg(prevState => ({
-            ...prevState,
-            [name]: 'Confirm Email address is incorrect'
-          }));
-          setValidation(false);
-          break;
-        }
-        setDetailMsg(prevState => ({
-          ...prevState,
-          [name]: ''
-        }));
-        break;
-
-      case 'address':
-        if (!regex.test(value)) {
-          setDetailMsg(prevState => ({
-            ...prevState,
-            [name]: 'Min of 3 characters'
-          }));
-          setValidation(false);
-          break;
-        }
-        setDetailMsg(prevState => ({
-          ...prevState,
-          [name]: ''
-        }));
-        break;
-
-      case 'postcode':
-        if (!regex.test(value)) {
-          setDetailMsg(prevState => ({
-            ...prevState,
-            [name]: 'Post code is invalid'
-          }));
-          setValidation(false);
-          break;
-        }
-
-        setDetailMsg(prevState => ({
-          ...prevState,
-          [name]: ''
-        }));
-        break;
-
-      case 'contactNumber':
-        if (!regex.test(value)) {
-          setDetailMsg(prevState => ({
-            ...prevState,
-            [name]: 'phone number is incorrect'
-          }));
-          setValidation(false);
-          break;
-        }
-        setDetailMsg(prevState => ({
-          ...prevState,
-          [name]: ''
-        }));
-        break;
-
-      default:
-        setDetailMsg(prevState => ({
-          ...prevState,
-          [name]: ''
-        }));
-    }
-
     setDetail(prevState => ({ ...prevState, [name]: value }));
   };
 
+  const handleVerified = validation => {
+    setVerified(validation);
+  };
+
   useEffect(() => {
-    setValidation(
-      !isEmpty(detailMsg) &&
-        isEmptyProp(detailMsg) &&
-        Object.keys(detail).length === 6
-    ); //when there is no error in detailMsg, and all detail been create, set Submit button available
-  }, [detail, detailMsg]); //as setState is async, only can get current state after the update in useEffect
+    setVerified(Object.keys(detail).length === 6); //when there is no error in detailMsg, and all detail been create, set Submit button available
+  }, [detail]); //as setState is async, only can get current state after the update in useEffect
 
   const handleSizeSelect = useCallback(size => {
     setSize(size);
@@ -220,7 +99,7 @@ const App = () => {
       <Section title='Enter your details'>
         <DetailForm
           detail={detail}
-          detailMsg={detailMsg}
+          handleVerified={handleVerified}
           handleDetail={handleDetail}
         />
       </Section>
@@ -239,7 +118,7 @@ const App = () => {
       <Section title='Order summary'>
         <OrderSummary selectedSize={size} selectedToppings={toppings} />
       </Section>
-      <PlaceOrderButton validation={validation}>Place order</PlaceOrderButton>
+      <PlaceOrderButton verified={verified}>Place order</PlaceOrderButton>
     </Layout>
   );
 };
