@@ -36,7 +36,7 @@ const PlaceOrderButton = styled.button`
     );
   }}
 `;
-//don't put const in render() will return different cache
+//don't put const in render() will return different cache address
 const SIZE_OPTION = [
   { size: 5, label: 'Large (13")', price: 16.99 },
   { size: 4, label: 'Medium (11")', price: 12.99 },
@@ -63,7 +63,6 @@ const TOPPING_INFORMATION = [
 
 const App = () => {
   const [detail, setDetail] = useState({});
-  const [verified, setVerified] = useState(false);
   const [size, setSize] = useState(SIZE_OPTION[2]);
   const [toppings, setToppings] = useState([]);
 
@@ -73,13 +72,9 @@ const App = () => {
     setDetail(prevState => ({ ...prevState, [name]: value }));
   };
 
-  const handleVerified = validation => {
-    setVerified(validation);
-  };
-
-  useEffect(() => {
-    setVerified(Object.keys(detail).length === 6); //when there is no error in detailMsg, and all detail been create, set Submit button available
-  }, [detail]); //as setState is async, only can get current state after the update in useEffect
+  // useEffect(() => {
+  //   setVerified(Object.keys(detail).length === 6); //when there is no error in detailMsg, and all detail been create, set Submit button available
+  // }, [detail]); //as setState is async, only can get current state after the update in useEffect
 
   const handleSizeSelect = useCallback(size => {
     setSize(size);
@@ -97,11 +92,7 @@ const App = () => {
   return (
     <Layout>
       <Section title='Enter your details'>
-        <DetailForm
-          detail={detail}
-          handleVerified={handleVerified}
-          handleDetail={handleDetail}
-        />
+        <DetailForm detail={detail} handleDetail={handleDetail} />
       </Section>
       <Section title='Choose your pizza'>
         <SizeSelector
@@ -118,7 +109,7 @@ const App = () => {
       <Section title='Order summary'>
         <OrderSummary selectedSize={size} selectedToppings={toppings} />
       </Section>
-      <PlaceOrderButton verified={verified}>Place order</PlaceOrderButton>
+      <PlaceOrderButton>Place order</PlaceOrderButton>
     </Layout>
   );
 };
