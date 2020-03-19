@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 
 import Section from './components/Section';
@@ -22,9 +22,9 @@ const PlaceOrderButton = styled.button`
   cursor: not-allowed;
   color: rgba(0, 0, 0, 0.4);
 
-  ${({ verified }) => {
+  ${({ verifing }) => {
     return (
-      verified &&
+      !verifing &&
       css`
         background: #98c550;
         cursor: pointer;
@@ -36,6 +36,7 @@ const PlaceOrderButton = styled.button`
     );
   }}
 `;
+
 //don't put const in render() will return different cache address
 const SIZE_OPTION = [
   { size: 5, label: 'Large (13")', price: 16.99 },
@@ -65,6 +66,7 @@ const App = () => {
   const [detail, setDetail] = useState({});
   const [size, setSize] = useState(SIZE_OPTION[2]);
   const [toppings, setToppings] = useState([]);
+  const [verifing, setVerifing] = useState(false);
 
   const handleDetail = e => {
     let value = e.target.value;
@@ -72,27 +74,38 @@ const App = () => {
     setDetail(prevState => ({ ...prevState, [name]: value }));
   };
 
-  // useEffect(() => {
-  //   setVerified(Object.keys(detail).length === 6); //when there is no error in detailMsg, and all detail been create, set Submit button available
-  // }, [detail]); //as setState is async, only can get current state after the update in useEffect
-
-  const handleSizeSelect = useCallback(size => {
+  const handleSizeSelect = size => {
     setSize(size);
-  }, []);
+  };
 
-  const handleToppingSelect = useCallback(
-    chosenTopping => {
-      toppings.includes(chosenTopping)
-        ? setToppings(toppings.filter(topping => topping !== chosenTopping))
-        : setToppings([...toppings, chosenTopping]);
-    },
-    [toppings]
-  );
+  const handleToppingSelect = chosenTopping => {
+    toppings.includes(chosenTopping)
+      ? setToppings(toppings.filter(topping => topping !== chosenTopping))
+      : setToppings([...toppings, chosenTopping]);
+  };
 
+  const handleVerifing = error => {
+    if (error) {
+      console.log(error);
+      return setVerifing(true);
+    }
+    setVerifing(false);
+  };
+
+  const handleSubmit = () => {
+    if (!verifing) {
+      return setVerifing(true);
+    }
+  };
   return (
     <Layout>
       <Section title='Enter your details'>
-        <DetailForm detail={detail} handleDetail={handleDetail} />
+        <DetailForm
+          detail={detail}
+          handleDetail={handleDetail}
+          verifing={verifing}
+          handleVerifing={handleVerifing}
+        />
       </Section>
       <Section title='Choose your pizza'>
         <SizeSelector
@@ -109,7 +122,9 @@ const App = () => {
       <Section title='Order summary'>
         <OrderSummary selectedSize={size} selectedToppings={toppings} />
       </Section>
-      <PlaceOrderButton>Place order</PlaceOrderButton>
+      <PlaceOrderButton verifing={verifing} onClick={() => handleSubmit()}>
+        Place order
+      </PlaceOrderButton>
     </Layout>
   );
 };

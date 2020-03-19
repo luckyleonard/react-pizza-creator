@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Label, Input, FormWrapper, ItemWrapper, Alarm } from './style';
+import { FormWrapper } from './style';
 import {
   isNotEmpty,
   isEmail,
@@ -9,56 +9,9 @@ import {
   isPostcode,
   isPhone
 } from '../../utils/useValidator';
+import DetailItem from './components';
 
-const DetailItem = ({
-  type,
-  label,
-  placeholder,
-  validations,
-  name,
-  input,
-  handleDetail
-}) => {
-  const [changed, setChanged] = useState(false);
-
-  const alarm = validations.reduce((prevValue, currentValue) => {
-    const { validator, alarm } = currentValue;
-    if (validator(input)) {
-      return prevValue;
-    }
-    return alarm;
-  }, undefined);
-
-  return (
-    <ItemWrapper>
-      <Label>
-        {label}
-        {alarm && changed && <Alarm>{alarm}</Alarm>}
-      </Label>
-      <Input
-        type={type}
-        name={name}
-        placeholder={placeholder}
-        value={input}
-        onChange={e => {
-          handleDetail(e);
-          setChanged(true);
-        }}
-      />
-    </ItemWrapper>
-  );
-};
-DetailItem.propTypes = {
-  type: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
-  validation: PropTypes.array,
-  name: PropTypes.string.isRequired,
-  input: PropTypes.string,
-  handleDetail: PropTypes.func.isRequired
-};
-
-const DetailForm = ({ detail, handleDetail }) => {
+const DetailForm = ({ detail, handleDetail, verifing, handleVerifing }) => {
   const FORM_LIST = {
     name: {
       type: 'text',
@@ -84,7 +37,7 @@ const DetailForm = ({ detail, handleDetail }) => {
         {
           validator: value => isEqual(value, detail.email),
           alarm: 'confirm Email address is not match'
-        }
+        } //for get the current detail.email every time during the detail form rerender
       ]
     },
     address: {
@@ -108,7 +61,7 @@ const DetailForm = ({ detail, handleDetail }) => {
     contactNumber: {
       type: 'text',
       label: 'contact number',
-      placeholder: '0400 123 456',
+      placeholder: '0400123456',
       validation: [
         { validator: isNotEmpty, alarm: 'contact number is required' },
         { validator: isPhone, alarm: 'phone number is invalid' }
@@ -129,6 +82,10 @@ const DetailForm = ({ detail, handleDetail }) => {
             input={detail[key] || ''}
             //fix the warning from https://stackoverflow.com/questions/47012169/a-component-is-changing-an-uncontrolled-input-of-type-text-to-be-controlled-erro
             handleDetail={handleDetail}
+            verifing={verifing}
+            handleVerifing={handleVerifing}
+            //handleValid={handleValid}
+            //valid={valid}
           />
         );
       })}
@@ -138,7 +95,9 @@ const DetailForm = ({ detail, handleDetail }) => {
 
 DetailForm.propTypes = {
   detail: PropTypes.object,
-  handleDetail: PropTypes.func.isRequired
+  handleDetail: PropTypes.func.isRequired,
+  verifing: PropTypes.bool.isRequired,
+  handleVerifing: PropTypes.func.isRequired
 };
 
 export default DetailForm;
