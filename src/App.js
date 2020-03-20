@@ -6,6 +6,7 @@ import DetailForm from './components/DetailForm';
 import SizeSelector from './components/SizeSelector';
 import ToppingSelector from './components/ToppingSelector';
 import OrderSummary from './components/OrderSummary';
+import { default as detailValidation } from './utils/validationData';
 
 const Layout = styled.div`
   padding: 20px 30px;
@@ -85,9 +86,16 @@ const App = () => {
   };
 
   const handleSubmit = () => {
-    if (!formDirty) {
-      return setformDirty(true);
+    setformDirty(true);
+    const valid =
+      Object.keys(detail).length === 0 ? false : detailValidation(detail);
+
+    if (!valid) {
+      alert('unSubmit');
+      return;
     }
+
+    alert('order placed');
   };
 
   return (
@@ -114,7 +122,7 @@ const App = () => {
       <Section title='Order summary'>
         <OrderSummary selectedSize={size} selectedToppings={toppings} />
       </Section>
-      <PlaceOrderButton formDirty={formDirty} onClick={() => handleSubmit()}>
+      <PlaceOrderButton formDirty={!formDirty} onClick={() => handleSubmit()}>
         Place order
       </PlaceOrderButton>
     </Layout>

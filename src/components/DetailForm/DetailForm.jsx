@@ -1,14 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormWrapper } from './style';
-import {
-  isNotEmpty,
-  isEmail,
-  isEqual,
-  isAddress,
-  isPostcode,
-  isPhone
-} from '../../utils/validators';
+import { VALIDATION } from '../../utils/validationData';
 import DetailItem from './components/DetailInput';
 
 const DetailForm = ({ detail, handleDetail, formDirty }) => {
@@ -17,55 +10,38 @@ const DetailForm = ({ detail, handleDetail, formDirty }) => {
       type: 'text',
       label: 'name',
       placeholder: 'John Smith',
-      validation: [{ validator: isNotEmpty, alarm: 'name is required' }]
+      validation: VALIDATION.name
     },
     email: {
       type: 'text',
       label: 'email',
       placeholder: 'Enter your email',
-      validation: [
-        { validator: isNotEmpty, alarm: 'email is required' },
-        { validator: isEmail, alarm: 'Email address is invalid' }
-      ]
+      validation: VALIDATION.email
     },
     confirmEmail: {
       type: 'text',
       label: 'confirm',
       placeholder: 'Confirm your email',
-      validation: [
-        { validator: isNotEmpty, alarm: 'email is required' },
-        {
-          validator: value => isEqual(value, detail.email),
-          alarm: 'confirm Email address is not match'
-        } //for get the current detail.email every time during the detail form rerender
-      ]
+      validation: VALIDATION.confirmEmail(detail.email)
+      //for get the current detail.email every time during the detail form rerender
     },
     address: {
       type: 'text',
       label: 'address',
       placeholder: '44 Pizza Street',
-      validation: [
-        { validator: isNotEmpty, alarm: 'address is required' },
-        { validator: isAddress, alarm: 'Min of 3 characters' }
-      ]
+      validation: VALIDATION.address
     },
     postcode: {
       type: 'text',
       label: 'postcode',
       placeholder: '3000',
-      validation: [
-        { validator: isNotEmpty, alarm: 'postcode is required' },
-        { validator: isPostcode, alarm: 'Post code is invalid' }
-      ]
+      validation: VALIDATION.postcode
     },
     contactNumber: {
       type: 'text',
       label: 'contact number',
       placeholder: '0400123456',
-      validation: [
-        { validator: isNotEmpty, alarm: 'contact number is required' },
-        { validator: isPhone, alarm: 'phone number is invalid' }
-      ]
+      validation: VALIDATION.contactNumber
     }
   };
   return (
