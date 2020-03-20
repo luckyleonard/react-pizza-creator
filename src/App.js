@@ -22,9 +22,9 @@ const PlaceOrderButton = styled.button`
   cursor: not-allowed;
   color: rgba(0, 0, 0, 0.4);
 
-  ${({ verifing }) => {
+  ${({ formDirty }) => {
     return (
-      !verifing &&
+      !formDirty &&
       css`
         background: #98c550;
         cursor: pointer;
@@ -66,7 +66,7 @@ const App = () => {
   const [detail, setDetail] = useState({});
   const [size, setSize] = useState(SIZE_OPTION[2]);
   const [toppings, setToppings] = useState([]);
-  const [verifing, setVerifing] = useState(false);
+  const [formDirty, setformDirty] = useState(false);
 
   const handleDetail = e => {
     let value = e.target.value;
@@ -84,27 +84,19 @@ const App = () => {
       : setToppings([...toppings, chosenTopping]);
   };
 
-  const handleVerifing = error => {
-    if (error) {
-      console.log(error);
-      return setVerifing(true);
+  const handleSubmit = () => {
+    if (!formDirty) {
+      return setformDirty(true);
     }
-    setVerifing(false);
   };
 
-  const handleSubmit = () => {
-    if (!verifing) {
-      return setVerifing(true);
-    }
-  };
   return (
     <Layout>
       <Section title='Enter your details'>
         <DetailForm
           detail={detail}
           handleDetail={handleDetail}
-          verifing={verifing}
-          handleVerifing={handleVerifing}
+          formDirty={formDirty}
         />
       </Section>
       <Section title='Choose your pizza'>
@@ -122,7 +114,7 @@ const App = () => {
       <Section title='Order summary'>
         <OrderSummary selectedSize={size} selectedToppings={toppings} />
       </Section>
-      <PlaceOrderButton verifing={verifing} onClick={() => handleSubmit()}>
+      <PlaceOrderButton formDirty={formDirty} onClick={() => handleSubmit()}>
         Place order
       </PlaceOrderButton>
     </Layout>

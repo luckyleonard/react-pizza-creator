@@ -8,10 +8,10 @@ import {
   isAddress,
   isPostcode,
   isPhone
-} from '../../utils/useValidator';
-import DetailItem from './components';
+} from '../../utils/validators';
+import DetailItem from './components/DetailInput';
 
-const DetailForm = ({ detail, handleDetail, verifing, handleVerifing }) => {
+const DetailForm = ({ detail, handleDetail, formDirty }) => {
   const FORM_LIST = {
     name: {
       type: 'text',
@@ -82,10 +82,7 @@ const DetailForm = ({ detail, handleDetail, verifing, handleVerifing }) => {
             input={detail[key] || ''}
             //fix the warning from https://stackoverflow.com/questions/47012169/a-component-is-changing-an-uncontrolled-input-of-type-text-to-be-controlled-erro
             handleDetail={handleDetail}
-            verifing={verifing}
-            handleVerifing={handleVerifing}
-            //handleValid={handleValid}
-            //valid={valid}
+            formDirty={formDirty}
           />
         );
       })}
@@ -96,8 +93,7 @@ const DetailForm = ({ detail, handleDetail, verifing, handleVerifing }) => {
 DetailForm.propTypes = {
   detail: PropTypes.object,
   handleDetail: PropTypes.func.isRequired,
-  verifing: PropTypes.bool.isRequired,
-  handleVerifing: PropTypes.func.isRequired
+  formDirty: PropTypes.bool.isRequired
 };
 
 export default DetailForm;

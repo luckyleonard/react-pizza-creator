@@ -16,17 +16,3 @@ export const isAddress = value => REGEX_LIST.address.test(value);
 export const isPostcode = value => REGEX_LIST.postcode.test(value);
 
 export const isPhone = value => REGEX_LIST.contactNumber.test(value);
-
-// export const useValidator = validation => {
-//   const [alarm, setAlarm] = useState('');
-
-//   const setMessage = input => {
-//     for (let item of validation) {
-//       !item.validator(input) ? setAlarm(item.alarm) : setAlarm('');
-//       if (!item.validator(input)) {
-//         break;
-//       }
-//     }
-//   };
-//   return [alarm, setMessage];
-// }; dont need an alarm state because it can calculate by input value

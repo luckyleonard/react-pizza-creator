@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Label, Input, ItemWrapper, Alarm } from '../style';
+import { Label, Input, ItemWrapper, Alarm } from '../../../DetailForm';
 
 const DetailItem = ({
   type,
@@ -9,9 +9,8 @@ const DetailItem = ({
   validations,
   name,
   input,
-  verifing,
-  handleDetail,
-  handleVerifing
+  formDirty,
+  handleDetail
 }) => {
   const [changed, setChanged] = useState(false);
 
@@ -36,21 +35,16 @@ const DetailItem = ({
   // do validation every time when item rerender(onChange cause DetailForm rerender no matter which input change)
   // for the confirm Email always compare with the email
 
-  if (verifing || changed) {
-    handleVerifing(error);
-  }
-
   const handleValueChange = e => {
     handleDetail(e);
     setChanged(true);
-    handleVerifing(true);
   };
 
   return (
     <ItemWrapper>
       <Label>
         {label}
-        {error && (verifing || changed) && <Alarm>{error}</Alarm>}
+        {error && (formDirty || changed) && <Alarm>{error}</Alarm>}
       </Label>
       <Input
         type={type}
@@ -69,6 +63,7 @@ DetailItem.propTypes = {
   validation: PropTypes.array,
   name: PropTypes.string.isRequired,
   input: PropTypes.string,
+  formDirty: PropTypes.bool.isRequired,
   handleDetail: PropTypes.func.isRequired
 };
 
