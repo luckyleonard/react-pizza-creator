@@ -5,7 +5,12 @@ const REGEX_LIST = {
   contactNumber: /^(?:(?:61)|(?:0))?([23478])(\d{4})(\d{4})$/
 };
 
-export const isNotEmpty = value => value.trim().length !== 0;
+export const isNotEmpty = value => {
+  if (value) {
+    return value.trim().length !== 0;
+  }
+  return false;
+};
 
 export const isEmail = value => REGEX_LIST.email.test(value);
 

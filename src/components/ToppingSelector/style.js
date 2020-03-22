@@ -40,3 +40,11 @@ export const Label = styled.h3`
   position: relative;
   margin-bottom: 10px;
 `;
+
+export const Alarm = styled.span`
+  float: right;
+  color: #e01d3b;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+`;

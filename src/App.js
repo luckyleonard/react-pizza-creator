@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 
 import Section from './components/Section';
@@ -23,9 +23,9 @@ const PlaceOrderButton = styled.button`
   cursor: not-allowed;
   color: rgba(0, 0, 0, 0.4);
 
-  ${({ formDirty }) => {
+  ${({ valid }) => {
     return (
-      !formDirty &&
+      valid &&
       css`
         background: #98c550;
         cursor: pointer;
@@ -68,6 +68,13 @@ const App = () => {
   const [size, setSize] = useState(SIZE_OPTION[2]);
   const [toppings, setToppings] = useState([]);
   const [formDirty, setformDirty] = useState(false);
+  const [validButton, setValidButton] = useState(true);
+
+  useEffect(() => {
+    if (detailValidation(detail) && toppings.length !== 0) {
+      setValidButton(true);
+    }
+  }, [detail, toppings]);
 
   const handleDetail = e => {
     let value = e.target.value;
@@ -87,10 +94,10 @@ const App = () => {
 
   const handleSubmit = () => {
     setformDirty(true);
-    const valid =
-      Object.keys(detail).length === 0 ? false : detailValidation(detail);
+    const valid = detailValidation(detail);
 
-    if (!valid) {
+    if (!valid || toppings.length === 0) {
+      setValidButton(false);
       alert('unSubmit');
       return;
     }
@@ -117,12 +124,13 @@ const App = () => {
           toppingList={TOPPING_INFORMATION}
           selectedToppings={toppings}
           onSelect={handleToppingSelect}
+          toppingDirty={formDirty}
         />
       </Section>
       <Section title='Order summary'>
         <OrderSummary selectedSize={size} selectedToppings={toppings} />
       </Section>
-      <PlaceOrderButton formDirty={!formDirty} onClick={() => handleSubmit()}>
+      <PlaceOrderButton valid={validButton} onClick={() => handleSubmit()}>
         Place order
       </PlaceOrderButton>
     </Layout>

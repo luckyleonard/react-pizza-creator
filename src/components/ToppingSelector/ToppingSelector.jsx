@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Label, ToppingSelectorWrapper, Topping, ToppingIcon } from './style';
+import {
+  Label,
+  ToppingSelectorWrapper,
+  Topping,
+  ToppingIcon,
+  Alarm
+} from './style';
 
 import anchovy from './assets/anchovy.svg';
 import bacon from './assets/bacon.svg';
@@ -49,10 +55,21 @@ SelectorItem.propTypes = {
   onSelect: PropTypes.func.isRequired
 };
 
-const ToppingSelector = ({ toppingList, selectedToppings, onSelect }) => {
+const ToppingSelector = ({
+  toppingList,
+  selectedToppings,
+  toppingDirty,
+  onSelect
+}) => {
   return (
     <>
-      <Label>Pick your toppings</Label>
+      <Label>
+        Pick your toppings
+        {toppingDirty && selectedToppings.length === 0 && (
+          <Alarm>Please choice at least on topping</Alarm>
+        )}
+      </Label>
+
       <ToppingSelectorWrapper>
         {toppingList.map((topping, index) => {
           return (
@@ -72,6 +89,7 @@ const ToppingSelector = ({ toppingList, selectedToppings, onSelect }) => {
 ToppingSelector.propTypes = {
   toppingList: PropTypes.array.isRequired,
   selectedToppings: PropTypes.array,
+  toppingDirty: PropTypes.bool.isRequired,
   onSelect: PropTypes.func.isRequired
 };
 export default ToppingSelector;
