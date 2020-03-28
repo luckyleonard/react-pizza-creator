@@ -6,7 +6,12 @@ export const AllSelectorWrapper = styled.div`
   justify-content: space-around;
 `;
 
-export const OneSelectorWrapper = styled.div`
+export const OneSelectorWrapper = styled.button`
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: none;
+  background: transparent;
   cursor: pointer;
   flex: calc(100% / 3);
   display: flex;

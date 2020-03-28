@@ -34,7 +34,7 @@ const ToppingPrice = ({ topping, toppingPrice }) => (
 );
 ToppingPrice.propTypes = {
   topping: PropTypes.string,
-  toppingPrice: PropTypes.string
+  toppingPrice: PropTypes.number
 };
 
 const OrderSummary = ({ selectedSize, selectedToppings }) => {
@@ -48,11 +48,13 @@ const OrderSummary = ({ selectedSize, selectedToppings }) => {
       <SizePrice size={selectedSize.label} sizePrice={selectedSize.price} />
       {selectedToppings.map((selectedTopping, index) => {
         return (
-          <ToppingPrice
-            topping={selectedTopping.label}
-            toppingPrice={selectedTopping.price}
-            key={index}
-          />
+          <ul>
+            <ToppingPrice
+              topping={selectedTopping.label}
+              toppingPrice={selectedTopping.price}
+              key={index}
+            />
+          </ul>
         );
       })}
       <TotalPrice>{totalPrice.toFixed(2)}</TotalPrice>

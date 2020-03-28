@@ -66,7 +66,7 @@ const ToppingSelector = ({
       <Label>
         Pick your toppings
         {toppingDirty && selectedToppings.length === 0 && (
-          <Alarm>Please choice at least on topping</Alarm>
+          <Alarm>Please choice at least one topping</Alarm>
         )}
       </Label>
 

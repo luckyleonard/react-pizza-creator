@@ -67,7 +67,7 @@ const App = () => {
   const [detail, setDetail] = useState({});
   const [size, setSize] = useState(SIZE_OPTION[2]);
   const [toppings, setToppings] = useState([]);
-  const [formDirty, setformDirty] = useState(false);
+  const [dirty, setDirty] = useState(false);
   const [validButton, setValidButton] = useState(true);
 
   useEffect(() => {
@@ -93,7 +93,7 @@ const App = () => {
   };
 
   const handleSubmit = () => {
-    setformDirty(true);
+    setDirty(true);
     const valid = detailValidation(detail);
 
     if (!valid || toppings.length === 0) {
@@ -111,7 +111,7 @@ const App = () => {
         <DetailForm
           detail={detail}
           handleDetail={handleDetail}
-          formDirty={formDirty}
+          formDirty={dirty}
         />
       </Section>
       <Section title='Choose your pizza'>
@@ -124,7 +124,7 @@ const App = () => {
           toppingList={TOPPING_INFORMATION}
           selectedToppings={toppings}
           onSelect={handleToppingSelect}
-          toppingDirty={formDirty}
+          toppingDirty={dirty}
         />
       </Section>
       <Section title='Order summary'>

@@ -19,7 +19,8 @@ export const SizePriceTag = styled.span`
   }
 `;
 
-export const ToppingSummary = styled.div`
+export const ToppingSummary = styled.li`
+  list-style: none;
   position: relative;
   font-size: 16px;
   color: rgba(0, 0, 0, 0.7);

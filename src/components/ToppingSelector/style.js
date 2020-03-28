@@ -6,12 +6,16 @@ export const ToppingSelectorWrapper = styled.div`
   justify-content: space-around;
 `;
 
-export const Topping = styled.div`
+export const Topping = styled.button`
   margin: 20px 10px 0 0;
   padding: 10px 15px 10px 53px;
+  outline: none;
+  border: none;
+  background: transparent;
   box-sizing: border-box;
   border-radius: 3px;
   font-size: 14px;
+
   font-weight: ${({ selected }) => (selected ? 500 : 400)};
   color: ${({ selected }) => (selected ? '#fff' : 'rgba(0, 0, 0, 0.7)')};
   background: ${({ selected }) =>
@@ -20,7 +24,7 @@ export const Topping = styled.div`
   overflow: hidden;
   user-select: none;
   position: relative;
-  flex: 18%;
+  flex: calc(100% / 5 - 20px);
 `;
 
 export const ToppingIcon = styled.span`
