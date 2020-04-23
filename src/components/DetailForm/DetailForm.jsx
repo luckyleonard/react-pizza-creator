@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormWrapper } from './style';
 import { VALIDATION } from '../../utils/validationData';
-import DetailItem from './components/DetailInput';
+import DetailInput from './components/DetailInput';
 
 const DetailForm = ({ detail, handleDetail, formDirty }) => {
   const FORM_LIST = {
@@ -10,45 +10,45 @@ const DetailForm = ({ detail, handleDetail, formDirty }) => {
       type: 'text',
       label: 'name',
       placeholder: 'John Smith',
-      validation: VALIDATION.name
+      validation: VALIDATION.name,
     },
     email: {
       type: 'text',
       label: 'email',
       placeholder: 'Enter your email',
-      validation: VALIDATION.email
+      validation: VALIDATION.email,
     },
     confirmEmail: {
       type: 'text',
       label: 'confirm',
       placeholder: 'Confirm your email',
-      validation: VALIDATION.confirmEmail(detail.email)
+      validation: VALIDATION.confirmEmail(detail.email),
       //for get the current detail.email every time during the detail form rerender
     },
     address: {
       type: 'text',
       label: 'address',
       placeholder: '44 Pizza Street',
-      validation: VALIDATION.address
+      validation: VALIDATION.address,
     },
     postcode: {
       type: 'text',
       label: 'postcode',
       placeholder: '3000',
-      validation: VALIDATION.postcode
+      validation: VALIDATION.postcode,
     },
     contactNumber: {
       type: 'text',
       label: 'contact number',
       placeholder: '0400123456',
-      validation: VALIDATION.contactNumber
-    }
+      validation: VALIDATION.contactNumber,
+    },
   };
   return (
     <FormWrapper>
-      {Object.keys(FORM_LIST).map(key => {
+      {Object.keys(FORM_LIST).map((key) => {
         return (
-          <DetailItem
+          <DetailInput
             key={key}
             name={key}
             type={FORM_LIST[key].type}
@@ -69,7 +69,7 @@ const DetailForm = ({ detail, handleDetail, formDirty }) => {
 DetailForm.propTypes = {
   detail: PropTypes.object,
   handleDetail: PropTypes.func.isRequired,
-  formDirty: PropTypes.bool.isRequired
+  formDirty: PropTypes.bool.isRequired,
 };
 
 export default DetailForm;

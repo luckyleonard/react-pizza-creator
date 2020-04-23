@@ -9,7 +9,7 @@ import {
   ToppingSummary,
   ToppingPriceTag,
   TotalPrice,
-  PlusIcon
+  PlusIcon,
 } from './style';
 
 const SizePrice = ({ size, sizePrice }) => (
@@ -20,7 +20,7 @@ const SizePrice = ({ size, sizePrice }) => (
 );
 SizePrice.propTypes = {
   size: PropTypes.string.isRequired,
-  sizePrice: PropTypes.number.isRequired
+  sizePrice: PropTypes.number.isRequired,
 };
 
 const ToppingPrice = ({ topping, toppingPrice }) => (
@@ -34,7 +34,7 @@ const ToppingPrice = ({ topping, toppingPrice }) => (
 );
 ToppingPrice.propTypes = {
   topping: PropTypes.string,
-  toppingPrice: PropTypes.number
+  toppingPrice: PropTypes.number,
 };
 
 const OrderSummary = ({ selectedSize, selectedToppings }) => {
@@ -52,7 +52,7 @@ const OrderSummary = ({ selectedSize, selectedToppings }) => {
             <ToppingPrice
               topping={selectedTopping.label}
               toppingPrice={selectedTopping.price}
-              key={index}
+              key={selectedTopping.label}
             />
           </ul>
         );
@@ -63,6 +63,6 @@ const OrderSummary = ({ selectedSize, selectedToppings }) => {
 };
 OrderSummary.propTypes = {
   selectedSize: PropTypes.object.isRequired,
-  selectedToppings: PropTypes.array
+  selectedToppings: PropTypes.array,
 };
 export default OrderSummary;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import styled, { css } from 'styled-components';
 
 import Section from './components/Section';
@@ -42,7 +42,7 @@ const PlaceOrderButton = styled.button`
 const SIZE_OPTION = [
   { size: 5, label: 'Large (13")', price: 16.99 },
   { size: 4, label: 'Medium (11")', price: 12.99 },
-  { size: 3, label: 'Small (9")', price: 9.99 }
+  { size: 3, label: 'Small (9")', price: 9.99 },
 ];
 
 const TOPPING_INFORMATION = [
@@ -60,7 +60,7 @@ const TOPPING_INFORMATION = [
   { label: 'Pepperoni', price: 0.69 },
   { label: 'Prawn', price: 0.99 },
   { label: 'Sweetcorn', price: 0.69 },
-  { label: 'Tomato', price: 0.69 }
+  { label: 'Tomato', price: 0.69 },
 ];
 
 const App = () => {
@@ -70,25 +70,25 @@ const App = () => {
   const [dirty, setDirty] = useState(false);
   const [validButton, setValidButton] = useState(true);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (detailValidation(detail) && toppings.length !== 0) {
       setValidButton(true);
     }
   }, [detail, toppings]);
 
-  const handleDetail = e => {
+  const handleDetail = (e) => {
     let value = e.target.value;
     let name = e.target.name;
-    setDetail(prevState => ({ ...prevState, [name]: value }));
+    setDetail((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleSizeSelect = size => {
+  const handleSizeSelect = (size) => {
     setSize(size);
   };
 
-  const handleToppingSelect = chosenTopping => {
+  const handleToppingSelect = (chosenTopping) => {
     toppings.includes(chosenTopping)
-      ? setToppings(toppings.filter(topping => topping !== chosenTopping))
+      ? setToppings(toppings.filter((topping) => topping !== chosenTopping))
       : setToppings([...toppings, chosenTopping]);
   };
 

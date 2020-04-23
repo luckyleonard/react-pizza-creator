@@ -10,7 +10,7 @@ const DetailItem = ({
   name,
   input,
   formDirty,
-  handleDetail
+  handleDetail,
 }) => {
   const [changed, setChanged] = useState(false);
 
@@ -35,23 +35,26 @@ const DetailItem = ({
   // do validation every time when item rerender(onChange cause DetailForm rerender no matter which input change)
   // for the confirm Email always compare with the email
 
-  const handleValueChange = e => {
+  const handleValueChange = (e) => {
     handleDetail(e);
     setChanged(true);
   };
 
   return (
-    <ItemWrapper>
-      <Label>
+    <ItemWrapper data-testid='detail-item'>
+      <Label data-testid='detail-label'>
         {label}
-        {error && (formDirty || changed) && <Alarm>{error}</Alarm>}
+        {error && (formDirty || changed) && (
+          <Alarm data-testid='detail-error'>{error}</Alarm>
+        )}
       </Label>
       <Input
+        data-testid='detail-input'
         type={type}
         name={name}
         placeholder={placeholder}
         value={input}
-        onChange={e => handleValueChange(e)}
+        onChange={(e) => handleValueChange(e)}
       />
     </ItemWrapper>
   );
@@ -64,7 +67,7 @@ DetailItem.propTypes = {
   name: PropTypes.string.isRequired,
   input: PropTypes.string,
   formDirty: PropTypes.bool.isRequired,
-  handleDetail: PropTypes.func.isRequired
+  handleDetail: PropTypes.func.isRequired,
 };
 
 export default DetailItem;
