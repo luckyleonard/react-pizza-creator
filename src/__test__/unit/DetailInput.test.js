@@ -36,11 +36,14 @@ describe('<DetailInput />', () => {
     expect(getByTestId('detail-input').value).toBe(FORM_DATA.input);
   });
 
-  const handleDetail = jest.fn();
-
   const changedDetail = 'test@email.com';
 
-  test('call handleDetail function with onChange', () => {
+  test('call handleDetail function with onChange', (done) => {
+    const handleDetail = (e) => {
+      expect(e.target.value).toEqual(changedDetail);
+      done();
+    };
+
     const { getByTestId } = render(
       <DetailInput
         type={FORM_DATA.type}
@@ -58,7 +61,7 @@ describe('<DetailInput />', () => {
     fireEvent.change(detailInput, {
       target: { value: changedDetail },
     });
-    expect(handleDetail).toHaveBeenCalledTimes(1);
-    expect(handleDetail).toHaveBeenCalledWith(changedDetail);
+    //expect(handleDetail).toHaveBeenCalledTimes(1);
+    //expect(handleDetail).toHaveBeenCalledWith(changedDetail);
   });
 });
