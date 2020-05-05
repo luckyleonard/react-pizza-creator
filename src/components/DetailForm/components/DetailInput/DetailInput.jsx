@@ -54,7 +54,7 @@ const DetailItem = ({
         name={name}
         placeholder={placeholder}
         value={input}
-        onChange={(e) => handleValueChange(e)}
+        onChange={handleValueChange}
       />
     </ItemWrapper>
   );

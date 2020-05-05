@@ -130,7 +130,7 @@ const App = () => {
       <Section title='Order summary'>
         <OrderSummary selectedSize={size} selectedToppings={toppings} />
       </Section>
-      <PlaceOrderButton valid={validButton} onClick={() => handleSubmit()}>
+      <PlaceOrderButton valid={validButton} onClick={handleSubmit}>
         Place order
       </PlaceOrderButton>
     </Layout>
