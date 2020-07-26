@@ -1,5 +1,7 @@
 import React from 'react';
 import { cleanup, render, fireEvent } from '@testing-library/react';
+import sinon from 'sinon';
+
 import DetailInput from '../../components/DetailForm/components/DetailInput';
 import { VALIDATION } from '../../utils/validationData';
 
@@ -38,11 +40,15 @@ describe('<DetailInput />', () => {
 
   const changedDetail = 'test@email.com';
 
-  test('call handleDetail function with onChange', (done) => {
-    const handleDetail = (e) => {
-      expect(e.target.value).toEqual(changedDetail);
-      done();
-    };
+  test('call handleDetail function with onChange', () => {
+    //done写在参数里,done就是回调函数，使测试的expect一定会执行
+    // const handleDetail = (e) => {
+    //   expect(e.target.value).toEqual(changedDetail);
+    //   done();
+    // };
+
+    const handleDetail = jest.fn();
+    // const handleDetail = sinon.spy();
 
     const { getByTestId } = render(
       <DetailInput
@@ -53,7 +59,8 @@ describe('<DetailInput />', () => {
         name={FORM_DATA.name}
         input={FORM_DATA.input}
         formDirty={true}
-        handleDetail={handleDetail}
+        handleDetail={({ target: { value } }) => handleDetail(value)}
+        //!!handleDetail 的mock方法一定要将input的值进行解构并赋给handleDetail函数 否则expect将会拦截到input事件，而不是input输入的值
       />
     );
 
@@ -61,7 +68,8 @@ describe('<DetailInput />', () => {
     fireEvent.change(detailInput, {
       target: { value: changedDetail },
     });
-    //expect(handleDetail).toHaveBeenCalledTimes(1);
-    //expect(handleDetail).toHaveBeenCalledWith(changedDetail);
+    expect(handleDetail).toHaveBeenCalledTimes(1);
+    expect(handleDetail).toHaveBeenCalledWith(changedDetail);
+    // sinon.assert.calledWith(handleDetail, changedDetail);
   });
 });
