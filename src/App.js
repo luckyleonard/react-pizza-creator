@@ -98,11 +98,15 @@ const App = () => {
 
     if (!valid || toppings.length === 0) {
       setValidButton(false);
-      alert('unSubmit');
+      alert('Please submit the form with required details');
       return;
     }
 
-    alert('order placed');
+    alert(
+      `order placed: ${size.label} with topping: ${toppings
+        .map((topping) => topping.label)
+        .join(',')}`
+    );
   };
 
   return (
