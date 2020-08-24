@@ -1,64 +1,60 @@
 # Pizza Creator
 
-MVP
+## Overview
 
-- [x] 去掉左面的 CSS 动画
-- [x] 地址输入表单
-- [x] 去掉多个 Pizza 的选择
-- [x] Size 选择列表
-- [x] Toppings 选择列表
-- [x] Order Summary
-- [x] Place Order (log)
+Pizza Creator Page is a single page application powered by Create React App.
 
-Milestone 1:
+## Online demo
 
-- 地址表单的输入验证
-- Size 选择列表的验证
-- Toppings 选择列表的验证
-- 对接后端 Place Order
+Click :point_right: bit.ly/333ubol
 
-Milestone n:
+> Deploy with github page
 
-- ...
+## Features
 
----
+- React Hooks + styled-components
+- Unit Test: Jest, React-testing-library
+- User can pick toppings and size from selector, it will auto interactive with order summary component.
+- Support form validation with functional programming.
 
-1. create react app
-2. styled-component
-3. basic project structure
+## Getting Started
 
----
+### Prerequisties
 
-yarn / npm
+- [Git](https://git-scm.com/downloads)
+- [Node](https://nodejs.org/en/download/) and [YARN](https://yarnpkg.com/)
 
-- yarn.lock -> yarn
-- package-lock.json -> npm
+### Installation
 
----
+```sh
+$ git clone https://github.com/luckyleonard/react-pizza-creator.git
+$ cd react-pizza-creator
 
-1. Break The UI Into A Component Hierarchy
-2. Build A Static Version in React
-3. Identify The Minimal (but complete) Representation Of UI State
-4. Identify Where Your State Should Live
-5. Add Inverse Data Flow
+# Install dependencies
+$ yarn
 
----
+# Start whole project
+$ yarn start
+```
 
-CSS libs
+## Test
 
-## CSS in Js
+### Unit Test
 
-### styled-components
+```sh
+# run unit test with Jest(React-testing-library)
+$ yarn run test
+```
 
-- https://styled-components.com/docs/basics#motivation
-- https://sass-lang.com/
+## Deploy
 
-## Normal css
+### Build
 
-### CSS Modules
+```sh
+# build website artifacts in ./build
+$ yarn run build
+```
 
----
+## Author
 
-将多余子组件拆分出来
-
-修改 toppings 和 size 的 div to button 更加语义化和符合 WACG 标准
+- [DI ZHU(Leonard)](mailto:dzhu31@hotmail.com)
