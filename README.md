@@ -8,7 +8,7 @@ Pizza Creator Page is a single page application powered by Create React App.
 
 Click :point_right: bit.ly/333ubol
 
-> Deploy with github page
+> Deploy with Netlify
 
 ## Features
 
